@@ -1,0 +1,10 @@
+## ESP-IDF build artifacts
+**/build/
+**/sdkconfig.old
+**/sdkconfig.defaults
+**/cmake-build-*/
+
+# Node.js dependencies
+server/node_modules/
+server/.env
+server/package-lock.json
