@@ -5,11 +5,14 @@
 #include "esp_netif.h"
 #include "esp_event.h"
 #include "esp_http_client.h"
+#include "dht.h"
 
 #include "protocol_examples_common.h"
 #include "esp_wifi.h"
 
 #define TAG "simple_connect_example"
+#define DHT_GPIO GPIO_NUM_4
+#define DHT_TYPE DHT_TYPE_DHT11
 
 static void post_rest_function() {
     
@@ -47,7 +50,9 @@ static void post_rest_function() {
 }
 
 void app_main(void) {
-    ESP_LOGI(TAG, "Hello from ESP32!");
+
+    float temperature = 0.0;
+    float humidity = 0.0;
 
     // System Initialization
     ESP_ERROR_CHECK(nvs_flash_init());
@@ -59,8 +64,19 @@ void app_main(void) {
 
     printf("Wifi is connected......\n");
 
+
     while (1) {
 
+        if (dht_read_float_data(DHT_GPIO, DHT_TYPE, &temperature, &humidity) == ESP_OK) {
+            printf("Temperature: %.1f°C, Humidity: %.1f%%\n", temperature, humidity);
+        } else {
+            printf("Failed to read data from DHT sensor.\n");
+        }
+
+        // need to pass in the pointer to the sensor
+        // need to then convert the sensor data from a string to a float with a buffer.
+        // talk to chat about malloc'ing things and where these should go.
+        // Helper funciton to read the data and it passes it back then pass that formatted data in?
         post_rest_function();
 
         printf("Request Sent\n");
