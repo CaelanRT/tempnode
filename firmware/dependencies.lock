@@ -1,23 +1,4 @@
 dependencies:
-  achimpieters/esp32-dht:
-    component_hash: e605fcdad07d9d9ad63fe14585b14bee8b4b6c7862247bf590cae44226f8e09c
-    dependencies:
-    - name: idf
-      require: private
-      version: '>=5.0'
-    source:
-      registry_url: https://components.espressif.com/
-      type: service
-    targets:
-    - esp32
-    - esp32c2
-    - esp32c3
-    - esp32c5
-    - esp32c6
-    - esp32c61
-    - esp32s2
-    - esp32s3
-    version: 1.0.2
   esp-idf-lib/dht:
     component_hash: 85509c7af4a6a992215061a6152813026d8ed4b7baf9b8a17e0f05224505e15f
     dependencies:
@@ -69,10 +50,9 @@ dependencies:
       type: local
     version: '*'
 direct_dependencies:
-- achimpieters/esp32-dht
 - esp-idf-lib/dht
 - idf
 - protocol_examples_common
-manifest_hash: cc750026140cc509c7723e4e19d33969b02bfa8c95cb73448799024b658e6866
+manifest_hash: 0e196538cc6ffe8a29641e4df6c16a9491d0a5f770bb3c63a465e185b1c89828
 target: esp32
 version: 2.0.0

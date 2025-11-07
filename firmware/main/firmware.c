@@ -11,7 +11,7 @@
 #include "esp_wifi.h"
 
 #define TAG "simple_connect_example"
-#define DHT_GPIO GPIO_NUM_4
+#define DHT_GPIO GPIO_NUM_21
 #define DHT_TYPE DHT_TYPE_DHT11
 
 static void post_rest_function() {
@@ -60,12 +60,15 @@ void app_main(void) {
     ESP_ERROR_CHECK(esp_event_loop_create_default());
 
     // Establish Wifi connection
-    ESP_ERROR_CHECK(example_connect());
+   // ESP_ERROR_CHECK(example_connect());
 
-    printf("Wifi is connected......\n");
+   // printf("Wifi is connected......\n");
 
 
     while (1) {
+
+        vTaskDelay(pdMS_TO_TICKS(2000));
+
 
         if (dht_read_float_data(DHT_GPIO, DHT_TYPE, &temperature, &humidity) == ESP_OK) {
             printf("Temperature: %.1f°C, Humidity: %.1f%%\n", temperature, humidity);
@@ -77,7 +80,7 @@ void app_main(void) {
         // need to then convert the sensor data from a string to a float with a buffer.
         // talk to chat about malloc'ing things and where these should go.
         // Helper funciton to read the data and it passes it back then pass that formatted data in?
-        post_rest_function();
+       // post_rest_function();
 
         printf("Request Sent\n");
         vTaskDelay(pdMS_TO_TICKS(5000));
