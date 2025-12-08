@@ -1,13 +1,21 @@
 #include <WiFi.h>
+#include <DHT.h>
+
+// define pin attributes
+#define DHTPIN 4
+#define DHTTYPE DHT11
 
 // Setting up variables
-char ssid[] = "****";
-char pass[] = "*****";
+char ssid[] = "******";
+char pass[] = "*******";
 
 
-// Initialize WiFiClient and Server
+// Initialize WiFiClient and Server and DHT object
 WiFiClient client;
-IPAddress server(******);
+IPAddress server(***********);
+DHT dht(DHTPIN, DHTTYPE);
+
+
 
 bool sendData(float temp, float humidity) {
   
@@ -31,6 +39,7 @@ void setup() {
   // setting up the serial monitor and connecting to wifi
   Serial.begin(9600);
   Serial.printf("Connecting to WiFi network: %s\n", ssid);
+  dht.begin();
 
   WiFi.begin(ssid, pass);
 
@@ -53,13 +62,8 @@ void setup() {
 void loop() {
 
   // main variables for the readings
-  float temperature = 7.0;
-  float humidity = 0.6;
-  bool requestSuccess = false;
-
-  //read humidity
-
-  //read temperature
+  float temperature = dht.readTemperature();
+  float humidity = dht.readHumidity();
 
   Serial.printf("%.1f degrees C, %.1f percent humidity\n", temperature, humidity);
 
