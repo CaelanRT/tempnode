@@ -6,13 +6,13 @@
 #define DHTTYPE DHT11
 
 // Setting up variables
-char ssid[] = "******";
+char ssid[] = "*****";
 char pass[] = "*******";
 
 
 // Initialize WiFiClient and Server and DHT object
 WiFiClient client;
-IPAddress server(***********);
+IPAddress server(*******);
 DHT dht(DHTPIN, DHTTYPE);
 
 
@@ -51,15 +51,18 @@ void setup() {
   Serial.println("Connected to Wifi!");
   Serial.println(WiFi.localIP());
 
-  if (client.connect(server, 3000)) {
-    Serial.println("Connected to Server!");
-  } else {
-    Serial.println("Not connected to Server!");
-  }
-
 }
 
 void loop() {
+
+  // open the connection to the server
+  Serial.println("Connecting to server");
+
+  while(!client.connect(server, 3000)) {
+    Serial.println(".");
+  }
+
+  Serial.println("Connected to Server!");
 
   // main variables for the readings
   float temperature = dht.readTemperature();
@@ -69,8 +72,14 @@ void loop() {
 
   //send data
   sendData(temperature, humidity);
+
   //print if it was successful or not
 
+  // stop the connection to the server
+  client.stop();
+
   delay(5000);
+
+  
 
 }
