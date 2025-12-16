@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const router = require('./routes/data');
+const db = require('./db/connect');
 app.use(express.json());
 
 // instance variables
@@ -26,6 +27,11 @@ app.use('/api/v1/data', router);
   //  res.send("Data Received");
 //})
 
+
+
 // listening on the port for requests
 app.listen(port, ()=>{
+    //connecting the db
+    db();
+
     console.log(`Server is listening on port ${3000}`)});
