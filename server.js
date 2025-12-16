@@ -2,12 +2,13 @@
 const express = require('express');
 const app = express();
 const router = require('./routes/data');
-const db = require('./db/connect');
+const {tableInit} = require('./db/connect');
 app.use(express.json());
 
 // instance variables
 const port = 3000;
-let temperature, humidity;
+
+tableInit();
 
 app.use('/api/v1/data', router);
 
@@ -32,6 +33,6 @@ app.use('/api/v1/data', router);
 // listening on the port for requests
 app.listen(port, ()=>{
     //connecting the db
-    db();
+    
 
     console.log(`Server is listening on port ${3000}`)});

@@ -1,10 +1,10 @@
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('../sensor_readings.db');
+const sqlite3 = require('sqlite3');
+const db = new sqlite3.Database('./sensor_readings.db');
 
 const tableInit = () => {
     db.exec(`
     CREATE TABLE IF NOT EXISTS data(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY,
     reading_date INTEGER,
     reading_time INTEGER,
     temperature INTEGER,
@@ -15,7 +15,11 @@ const tableInit = () => {
     return db;
 }
 
-//NEED TO FIGURE OUT HOW TO PASS AROUND THE DB OBJECT!
+const getDB = () => {
+    return db;
+}
 
-
-module.exports = tableInit;
+module.exports = {
+    tableInit,
+    getDB
+};
