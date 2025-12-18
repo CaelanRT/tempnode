@@ -10,6 +10,11 @@ const port = 3000;
 
 tableInit();
 
+app.get('/', (req, res) => {
+  console.log('request sent');
+  res.status(200).json({temperature:20,humidity:30});
+})
+
 app.use('/api/v1/data', router);
 
 
