@@ -3,7 +3,14 @@ const express = require('express');
 const app = express();
 const router = require('./routes/data');
 const {tableInit} = require('./db/connect');
+const cors = require('cors');
+
+// middleware
 app.use(express.json());
+app.use(cors({
+  origin: 'http://127.0.0.1:5173'
+}));
+
 
 // instance variables
 const port = 3000;
@@ -12,7 +19,7 @@ tableInit();
 
 app.get('/', (req, res) => {
   console.log('request sent');
-  res.status(200).json({temperature:20,humidity:30});
+  res.status(200).json({temperature: 20, humidity: 45});
 })
 
 app.use('/api/v1/data', router);
