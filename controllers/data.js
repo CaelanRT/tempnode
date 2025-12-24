@@ -7,11 +7,16 @@ const readData = (req,res) => {
     // destructuring the request
     const {temperature, humidity} = req.body;
 
+    // timestamp
+    const now = new Date();
+    const reading_date = now.toISOString().slice(0, 10);
+    const reading_time = now.toTimeString().slice(0, 8);
+
     //logging
-    console.log(temperature + " " + humidity);
+    console.log(`${reading_date} - ${reading_time} - temperature: ${temperature}, humidity: ${humidity}`);
 
     // running the query
-    db.run("INSERT INTO data(reading_date, reading_time, temperature, humidity) VALUES(?, ?, ?, ?)", 1, 1, temperature, humidity);
+    db.run("INSERT INTO data(reading_date, reading_time, temperature, humidity) VALUES(?, ?, ?, ?)", reading_date, reading_time, temperature, humidity);
 
     //sending response
     res.status(201).json({temperature:temperature, humidity:humidity});

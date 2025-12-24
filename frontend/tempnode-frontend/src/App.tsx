@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
   const [temperature, setTemperature] = useState(0)
   const [humidity, setHumidity] = useState(0);
 
+  // useEffect to load latest in DB
+  useEffect(() => {
+    getData();
+  }, []);
 
   // function that makes a GET request to my server and saves the values in state
   async function getData() {
