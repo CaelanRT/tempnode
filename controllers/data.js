@@ -14,7 +14,33 @@ const readData = (req,res) => {
     db.run("INSERT INTO data(reading_date, reading_time, temperature, humidity) VALUES(?, ?, ?, ?)", 1, 1, temperature, humidity);
 
     //sending response
-    res.status(200).json({temperature:temperature, humidity:humidity});
+    res.status(201).json({temperature:temperature, humidity:humidity});
 }
 
-module.exports = readData;
+// gets the latest readings
+const getLatest = (req,res) => {
+    const sql = "SELECT * FROM data ORDER BY id DESC LIMIT 1";
+    let temperature = 0, humidity = 0;
+
+    db.get(sql,[], (err, row) => {
+        if (err) {
+            res.send(500).json({error:'DB error'});
+        }
+
+        if (row) {
+            temperature = row.temperature;
+            humidity = row.humidity;
+
+            res.status(200).json({temperature:temperature, humidity:humidity});
+            
+        } else {
+            console.log("No data found.");
+            res.status(500).json({temperature:null,humidiy:null});
+        }
+    })    
+}
+
+module.exports = {
+    readData,
+    getLatest
+};

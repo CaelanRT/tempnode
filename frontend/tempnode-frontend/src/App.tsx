@@ -8,7 +8,7 @@ function App() {
 
   // function that makes a GET request to my server and saves the values in state
   async function getData() {
-    const url: string = "http://localhost:3000";
+    const url: string = "http://localhost:3000/api/v1/data";
     try {
       const response: Response = await fetch(url);
 
