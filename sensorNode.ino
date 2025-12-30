@@ -23,7 +23,7 @@ bool sendData(float temp, float humidity) {
   String body = "{\"temperature\":" + String(temp) + ", \"humidity\":" + String(humidity) + "}";
 
   // writing the http request to the client
-  client.println("POST /data HTTP/1.1");
+  client.println("POST /api/v1/data HTTP/1.1");
   client.println("Host: 10.0.0.165:3000");
   client.println("Content-Type: application/json");
   client.println("Content-Length: " + String(body.length()));
