@@ -4,9 +4,6 @@ A small end-to-end system that collects real temperature and humidity data from 
 
 This project was built to exercise the full path from embedded firmware to deployed web application, with an emphasis on understanding how data moves across machines, how services communicate over a network, and how a simple system is deployed and debugged in a Linux environment.
 
-## What I Learned
-
-
 ## System Overview
 
 The system consists of three clearly separated parts:
